@@ -1,0 +1,80 @@
+{
+  "id": "integrator",
+  "name": "Integrator",
+  "summary": "Merges reviewed, green pull requests and deploys main to the lower environments (dev, then stage). Never production, never a version tag.",
+  "version": 8,
+  "consumers": [
+    "worker",
+    "daemon"
+  ],
+  "knowledge": [
+    "CLAUDE.md",
+    "stack/infra-map.md",
+    "vsi-web",
+    "galt"
+  ],
+  "takes": [
+    {
+      "kind": "merge",
+      "requires": [
+        "repo",
+        "pr"
+      ],
+      "optional": [
+        "deploy_after"
+      ],
+      "include": "a reviewed PR that passes the repo's done-gate; deploy_after=dev leaves dev pending, and one batch deploy covers every merged PR (vsi-web)"
+    },
+    {
+      "kind": "deploy-lower",
+      "requires": [
+        "repo",
+        "env"
+      ],
+      "optional": [
+        "ref",
+        "landing",
+        "pr"
+      ],
+      "include": "env is dev or stage; ref defaults to main's head; landing and pr name the registry record the deploy covers (galt#644)"
+    }
+  ],
+  "kinds": [],
+  "grants": [
+    {
+      "action": "merge",
+      "env": "*",
+      "repo": "vsi-web"
+    },
+    {
+      "action": "merge",
+      "env": "*",
+      "repo": "galt"
+    },
+    {
+      "action": "merge",
+      "env": "*",
+      "repo": "vsi-ios"
+    },
+    {
+      "action": "deploy",
+      "env": "dev",
+      "repo": "vsi-web"
+    },
+    {
+      "action": "deploy",
+      "env": "stage",
+      "repo": "vsi-web"
+    },
+    {
+      "action": "rules",
+      "env": "dev",
+      "repo": "vsi-web"
+    },
+    {
+      "action": "rules",
+      "env": "stage",
+      "repo": "vsi-web"
+    }
+  ]
+}

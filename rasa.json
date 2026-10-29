@@ -1,0 +1,36 @@
+{
+  "$schema": "https://rasa-os.github.io/schema/rasa.schema.v1.json",
+  "contract_version": "1.4.0",
+  "name": "rasa.module.role.integrator",
+  "version": "0.1.0",
+  "kind": "module",
+  "aliases": [
+    "role-integrator",
+    "rasa.role.integrator"
+  ],
+  "description": "The Integrator role (`integrator`) as a RasaOS role module. Merges reviewed, green pull requests and deploys main to the lower environments (dev, then stage). Never production, never a version tag.",
+  "source": {
+    "repo": "https://github.com/RasaOS/role-integrator",
+    "branch": "main"
+  },
+  "tier": "Pro",
+  "capabilities": [
+    "role.integrator",
+    "work.merge",
+    "work.deploy-lower"
+  ],
+  "permissions": [],
+  "requires": {
+    "parent_kind": [
+      "domain",
+      "tenant"
+    ]
+  },
+  "rasa": {
+    "shape_pattern": "role",
+    "role_id": "integrator",
+    "role_version": 8,
+    "role_source": "Vehicle-Safety-Inspections/vsi-tenant roles/integrator.md at fd0c872",
+    "note": "PROVISIONAL (galt ADR 0064; tenant ADR 2026-10-10-roles-are-element-modules D2): canon has no kind: role yet, so a role is a module. role.json and prompt.md are what galt reads to publish the role and to load it as an agent's brain; .claude-plugin/plugin.json makes the repo loadable with --plugin-dir. The repo is role-integrator (the ADR 0064 form, and canon's once kind: role lands), not module-role-integrator. No permissions: the role's gate grants are in role.json and reach a session only through a role assignment a person publishes."
+  }
+}
