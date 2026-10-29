@@ -1,5 +1,5 @@
 {
   "name": "rasa-role-integrator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The Integrator role (`integrator`) as a RasaOS role module. Merges reviewed, green pull requests and deploys main to the lower environments (dev, then stage). Never production, never a version tag."
 }
